@@ -1,3 +1,5 @@
+$(document).on("ready", function() {
+
 // DEFINE CONSTRUCTORS FOR MENU ITEMS //
 
 function FoodItem(name, calories, vegan, glutenFree, citrusFree) {
@@ -75,7 +77,7 @@ var pepes = new Restaurant(
 );
 
 FoodItem.prototype.toString = function () {
-    return this.name + "\n" + this.calories + "\n" + this.vegan + "\n" +   this.glutenFree + "\n" + this.citrusFree;
+    return this.name + "\n" + this.calories + "\n" + this.vegan + "\n" +   this.glutanFree + "\n" + this.citrusFree;
 };
 
 Drink.prototype.toString = function () {
@@ -130,14 +132,45 @@ console.log( pepes.toString() );
 // };
 
 
-$(document).on('ready', function() {
+
 
     FoodItem.prototype.create = function() {
-        return $('<div class="food-item">').text(name);
+        return ('<div class="food-item">' + this.name + '\n' + this.calories + '\n' + this.vegan + '\n' + this.glutenFree + '\n' +  this.citrusFree + '</div>');
+        };
+        var carrots = new FoodItem("carrots", 20, true, true, true );
+        $(".container").append(carrots.create());
 
 
+    Drink.prototype.create = function() {
+        return ('<div class="drink-item">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>');
+        };
+        var lemonade = new Drink("lemonade", "fresh squeezed lemonade", 1.00, ["lemons", "water", "sugar"]);
+        $(".container").append(carrots.create());
+
+    Plate.prototype.create = function() {
+        return ('<div class="plate">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>');
+        };
+        var Steak = new Plate("Steak Plate", "10oz Ribeye", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
+        $(".container").append(carrots.create());
+
+    Order.prototype.create = function() {
+        return $('<div class="order">').text(name);
+        };
+        var HappyHourPlate = new Order(Steak);
+        $(".container").append(carrots.create());
+
+
+    Menu.prototype.create = function() {
+        return $('<div class="menu">').text(name);
+        };
+        var DinnerMenu = new Order(Steak);
+        $(".container").append(carrots.create());
+
+    Restaurant.prototype.create = function() {
+        return $('<div class="restaurant">').text(name);
     };
-
+        var BoulderSteaks = new Menu(HappyHourPlate);
+        $(".container").append(carrots.create());
 
 
 });
