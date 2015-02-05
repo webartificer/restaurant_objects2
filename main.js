@@ -1,44 +1,212 @@
 $(document).on("ready", function() {
 
+
+
+
+
+
+    $(document).on("click",".clickPic" ,function genOrder(){
+        console.log("adding to order");
+        $( "div#orderBar" ).fadeIn( "slow" );
+        $('aside ul').append(chickenBurritoPlate.create());
+        // var myQuote = $("#add-quote").val();
+        // var myAuthor = $("#add-author").val();
+        //
+        // Quote.prototype.create = function() {
+        //     this.$el = $('<li>')
+        //     .addClass('test')
+        //     .append('<blockquote>' + this.text)
+        //     .append('<h1>' +  this.author)
+        //     .append('<div class="rating">' +  this.rating)
+        //     .append('<div class="close"><i class="fa fa-times"></i></div>');
+        //     return this.$el;
+        // };
+        //
+        // var greatQuote1 = new Quote(myQuote,myAuthor, 5);
+        // $('#quoteList ul').append(greatQuote1.create());
+        //
+        // $("#add-quote").val('');
+        // $("#add-author").val('');
+
+
+    });
+
+    $(document).on("click","#orderBar" ,function genOrder(){
+        console.log("removing order bar");
+        $( "div#orderBar" ).fadeOut( "slow" );
+    });
+
+
 // DEFINE CONSTRUCTORS FOR MENU ITEMS //
 
-function FoodItem(name, calories, vegan, glutenFree, citrusFree) {
+
+// PLATE //
+
+function Plate(imgUrl, name, description, price, ingredients) {
+    this.name = name;
+    this.imgUrl = imgUrl || "No Image";
+    this.description = description;
+    this.price = price;
+    this.ingredients = ingredients;
+}
+
+Plate.prototype.toString = function () {
+    return this.imgUrl + this.name + "\n" + this.description + "\n" + this.price + "\n" +   this.ingredients;
+};
+
+Plate.prototype.isGlutenFree = function () {
+    return this.isGlutenFree;
+};
+
+Plate.prototype.isCitrusFree = function () {
+    return this.isCitrusFree;
+};
+
+Plate.prototype.isVegan = function () {
+    return this.isVegan;
+};
+
+Plate.prototype.create = function() {
+    return $('<li class="plates">' + '<div>' + this.imgUrl + '<div class="nothidden">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>' + '</div>' + '</li>');
+    };
+    var chickenBurritoPlate = new Plate('<img src="http://placehold.it/500x500" class="clickPic">',"Chicken Burritto Plate", "10oz Ribeye", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
+    var floutasPlate = new Plate('<img src="http://placehold.it/500x500" class="clickPic">',"Floutas Plate", "A delicious floutas plate", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
+    var chiliRellenosPlate = new Plate('<img src="http://placehold.it/500x500" class="clickPic">',"Chili Rellenos Plate", "Spicy Spicy Goodness", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
+
+
+    $(".container ul.plates").append(chickenBurritoPlate.create());
+    $(".container ul.plates").append(floutasPlate.create());
+    $(".container ul.plates").append(chiliRellenosPlate.create());
+
+
+// FOOD ITEM //
+
+function FoodItem(imgUrl, name, calories, vegan, glutenFree, citrusFree) {
     this.name = name || "name unknown";
+    this.imgUrl = imgUrl || "No Image";
     this.calories = calories || "calories unknown";
     this.vegan = vegan || "vegan unknown";
-    this.glutenFree = glutenFree || "glutan free unknown";
+    this.glutenFree = glutenFree || "gluten free unknown";
     this.citrusFree = citrusFree || "citrus free unknown";
 }
 
-function Drink(name, description, price, ingredients) {
+FoodItem.prototype.toString = function () {
+    return this.imgUrl + this.name + "\n" + this.calories + "\n" + this.vegan + "\n" +   this.glutanFree + "\n" + this.citrusFree;
+};
+
+FoodItem.prototype.create = function() {
+    return ('<li class="food-item">' + '<div>' + this.imgUrl + '<div class="hidden">' + this.name + '\n' + this.calories + '\n' + this.vegan + '\n' + this.glutenFree + '\n' +  this.citrusFree + '<div' + '<div>' + '</li>');
+    };
+    var nachos = new FoodItem('<img src="http://placehold.it/500x500">',"Nachos", 20, true, true, true );
+    var tostada = new FoodItem('<img src="http://placehold.it/500x500">',"Tostada", 20, true, true, true );
+    var tacoSalad = new FoodItem('<img src="http://placehold.it/500x500">',"Taco Salad", 20, true, true, true );
+
+
+    $(".container ul.foodItems").append(nachos.create());
+    $(".container ul.foodItems").append(tostada.create());
+    $(".container ul.foodItems").append(tacoSalad.create());
+
+
+    var carrots = new FoodItem("Carrots", 20, true, true, true );
+
+
+
+// DRINK //
+
+function Drink(imgUrl, name, description, price, ingredients) {
     this.name = name;
+    this.imgUrl = imgUrl || "No Image";
     this.description = description;
     this.price = price;
     this.ingredients = ingredients;
 }
 
-function Plate(name, description, price, ingredients) {
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.ingredients = ingredients;
-}
+Drink.prototype.toString = function () {
+    return this.imgUrl + this.name + "\n" + this.description + "\n" + this.price + "\n" +   this.ingredients;
+};
+
+Drink.prototype.create = function() {
+    return $('<li class="drinks">' + '<div>' + this.imgUrl + '<div class="hidden">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>' + '</div>' + '</li>');
+    };
+    var lemonade = new Drink('<img src="http://placehold.it/500x500">',"Horchata", "fresh squeezed lemonade", 1.00, ["lemons", "water", "sugar"]);
+    var horchata = new Drink('<img src="http://placehold.it/500x500">',"Horchata", "Awesome Horchata", 1.00, ["lemons", "water", "sugar"]);
+    var margarita = new Drink('<img src="http://placehold.it/500x500">',"Margarita", "Margarita Madness", 1.00, ["lemons", "water", "sugar"]);
+
+    $(".container ul.drinks").append(lemonade.create());
+    $(".container ul.drinks").append(horchata.create());
+    $(".container ul.drinks").append(margarita.create());
+
+
+
+
+
+
+// ORDER //
 
 function Order(plates) {
     this.plates = plates;
 }
+
+Order.prototype.toString = function () {
+    return this.plates.toString();
+};
+
+Order.prototype.create = function() {
+    return $('<div class="order">').text(this.name);
+    };
+    var HappyHourPlate = new Order();
+
+
+
+// MENU //
+
 function Menu(plates) {
     this.plates = plates;
 }
+
+Menu.prototype.toString = function () {
+    return this.plates.toString();
+};
+
+Menu.prototype.create = function() {
+    return $('<div class="menu">').text(this.name);
+    };
+    var DinnerMenu = new Order();
+
+
+
+// RESTAURANT //
+
 function Restaurant(name, description, menu) {
     this.name = name;
     this.description = description;
     this.menu = menu;
 }
 
+Restaurant.prototype.toString = function () {
+    return this.name + "\n" + this.description + "\n" + this.menu;
+};
+
+Restaurant.prototype.create = function() {
+    return $('<div class="restaurant">').text(this.name);
+    };
+    var BoulderSteaks = new Menu(HappyHourPlate);
+
+
+
+// DIET //
+
 function Customer(diet)  {
     this.diet = diet;
 }
+
+Customer.prototype.toString = function () {
+    return this.diet;
+};
+
+
+
+
 
 var tortillaSoup = new FoodItem("Tortilla Soup", 350, false, false, true);
 var fishTacos = new FoodItem("Tacos", 400, false, false, false);
@@ -76,101 +244,8 @@ var pepes = new Restaurant(
     "Pepes", "Authentic Mexican Cuisine", dinnerMenu
 );
 
-FoodItem.prototype.toString = function () {
-    return this.name + "\n" + this.calories + "\n" + this.vegan + "\n" +   this.glutanFree + "\n" + this.citrusFree;
-};
-
-Drink.prototype.toString = function () {
-    return this.name + "\n" + this.description + "\n" + this.price + "\n" +   this.ingredients;
-};
-
-Plate.prototype.toString = function () {
-    return this.name + "\n" + this.description + "\n" + this.price + "\n" +   this.ingredients;
-};
 
 
-
-
-Plate.prototype.isVegan = function () {
-    return this.isVegan;
-};
-
-Plate.prototype.isGlutenFree = function () {
-    return this.isGlutenFree;
-};
-
-Plate.prototype.isCitrusFree = function () {
-    return this.isCitrusFree;
-};
-
-
-
-
-Order.prototype.toString = function () {
-    return this.plates.toString();
-};
-
-Menu.prototype.toString = function () {
-    return this.plates.toString();
-};
-
-Restaurant.prototype.toString = function () {
-    return this.name + "\n" + this.description + "\n" + this.menu;
-};
-
-Customer.prototype.toString = function () {
-    return this.diet;
-};
-
-
-
-// console.log(dinnerMenu);
 console.log( pepes.toString() );
-
-// class_name.prototype.method_name = function (first_argument) {
-//     // body...
-// };
-
-
-
-
-    FoodItem.prototype.create = function() {
-        return ('<div class="food-item">' + this.name + '\n' + this.calories + '\n' + this.vegan + '\n' + this.glutenFree + '\n' +  this.citrusFree + '</div>');
-        };
-        var carrots = new FoodItem("carrots", 20, true, true, true );
-        $(".container").append(carrots.create());
-
-
-    Drink.prototype.create = function() {
-        return ('<div class="drink-item">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>');
-        };
-        var lemonade = new Drink("lemonade", "fresh squeezed lemonade", 1.00, ["lemons", "water", "sugar"]);
-        $(".container").append(carrots.create());
-
-    Plate.prototype.create = function() {
-        return ('<div class="plate">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>');
-        };
-        var Steak = new Plate("Steak Plate", "10oz Ribeye", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
-        $(".container").append(carrots.create());
-
-    Order.prototype.create = function() {
-        return $('<div class="order">').text(name);
-        };
-        var HappyHourPlate = new Order(Steak);
-        $(".container").append(carrots.create());
-
-
-    Menu.prototype.create = function() {
-        return $('<div class="menu">').text(name);
-        };
-        var DinnerMenu = new Order(Steak);
-        $(".container").append(carrots.create());
-
-    Restaurant.prototype.create = function() {
-        return $('<div class="restaurant">').text(name);
-    };
-        var BoulderSteaks = new Menu(HappyHourPlate);
-        $(".container").append(carrots.create());
-
 
 });
