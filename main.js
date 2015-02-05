@@ -5,10 +5,15 @@ $(document).on("ready", function() {
 
 
 
-    $(document).on("click",".clickPic" ,function genOrder(){
-        console.log("adding to order");
+    $(document).on("click", "li" ,function genOrder(){
+        console.log(this);
+
         $( "div#orderBar" ).fadeIn( "slow" );
-        $('aside ul').append(chickenBurritoPlate.create());
+
+        $(this).clone().appendTo("aside ul");
+        $(this).clone().appendTo("#orderBar").delay(5000).fadeOut(3000);
+        // $('#orderBar').clone().append(this);
+
         // var myQuote = $("#add-quote").val();
         // var myAuthor = $("#add-author").val();
         //
@@ -67,11 +72,11 @@ Plate.prototype.isVegan = function () {
 };
 
 Plate.prototype.create = function() {
-    return $('<li class="plates">' + '<div>' + this.imgUrl + '<div class="nothidden">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>' + '</div>' + '</li>');
+    return $('<li class="plates">' + '<div>' + this.imgUrl + '<div class="hidden">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>' + '</div>' + '</li>');
     };
-    var chickenBurritoPlate = new Plate('<img src="http://placehold.it/500x500" class="clickPic">',"Chicken Burritto Plate", "10oz Ribeye", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
-    var floutasPlate = new Plate('<img src="http://placehold.it/500x500" class="clickPic">',"Floutas Plate", "A delicious floutas plate", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
-    var chiliRellenosPlate = new Plate('<img src="http://placehold.it/500x500" class="clickPic">',"Chili Rellenos Plate", "Spicy Spicy Goodness", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
+    var chickenBurritoPlate = new Plate('<img src="img/plate_burrito.jpg" class="clickPic">',"Chicken Burritto Plate", "10oz Ribeye", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
+    var floutasPlate = new Plate('<img src="img/plate_floutas.png" class="clickPic">',"Floutas Plate", "A delicious floutas plate", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
+    var chiliRellenosPlate = new Plate('<img src="img/plate_chili.png" class="clickPic">',"Chili Rellenos Plate", "Spicy Spicy Goodness", 12.00, ["steak", "steamed vegetables", "mashed potatos"]);
 
 
     $(".container ul.plates").append(chickenBurritoPlate.create());
@@ -97,9 +102,9 @@ FoodItem.prototype.toString = function () {
 FoodItem.prototype.create = function() {
     return ('<li class="food-item">' + '<div>' + this.imgUrl + '<div class="hidden">' + this.name + '\n' + this.calories + '\n' + this.vegan + '\n' + this.glutenFree + '\n' +  this.citrusFree + '<div' + '<div>' + '</li>');
     };
-    var nachos = new FoodItem('<img src="http://placehold.it/500x500">',"Nachos", 20, true, true, true );
-    var tostada = new FoodItem('<img src="http://placehold.it/500x500">',"Tostada", 20, true, true, true );
-    var tacoSalad = new FoodItem('<img src="http://placehold.it/500x500">',"Taco Salad", 20, true, true, true );
+    var nachos = new FoodItem('<img src="img/nachos.png">',"Nachos", 20, true, true, true );
+    var tostada = new FoodItem('<img src="img/tostada.png">',"Tostada", 20, true, true, true );
+    var tacoSalad = new FoodItem('<img src="img/taco_salad.png">',"Taco Salad", 20, true, true, true );
 
 
     $(".container ul.foodItems").append(nachos.create());
@@ -128,9 +133,9 @@ Drink.prototype.toString = function () {
 Drink.prototype.create = function() {
     return $('<li class="drinks">' + '<div>' + this.imgUrl + '<div class="hidden">' + this.name + '\n' + this.description + '\n' + this.price + '\n' + this.ingredients + '</div>' + '</div>' + '</li>');
     };
-    var lemonade = new Drink('<img src="http://placehold.it/500x500">',"Horchata", "fresh squeezed lemonade", 1.00, ["lemons", "water", "sugar"]);
-    var horchata = new Drink('<img src="http://placehold.it/500x500">',"Horchata", "Awesome Horchata", 1.00, ["lemons", "water", "sugar"]);
-    var margarita = new Drink('<img src="http://placehold.it/500x500">',"Margarita", "Margarita Madness", 1.00, ["lemons", "water", "sugar"]);
+    var lemonade = new Drink('<img src="img/lemonade.png">',"Lemonade", "fresh squeezed lemonade", 1.00, ["lemons", "water", "sugar"]);
+    var horchata = new Drink('<img src="img/horchata.png">',"Horchata", "Awesome Horchata", 1.00, ["lemons", "water", "sugar"]);
+    var margarita = new Drink('<img src="img/margarita.png">',"Margarita", "Margarita Madness", 1.00, ["lemons", "water", "sugar"]);
 
     $(".container ul.drinks").append(lemonade.create());
     $(".container ul.drinks").append(horchata.create());
